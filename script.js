@@ -1,6 +1,6 @@
 // Write your JavaScript code here!
 window.addEventListener("load", function() {
-   let form = document.querySelector("form");
+   const form = document.querySelector("form");
    form.addEventListener("submit", function(event) {
       let pilotNameInput = document.querySelector("input[name=pilotName]");
       let coPilotNameInput = document.querySelector("input[name=copilotName]");
@@ -13,6 +13,15 @@ window.addEventListener("load", function() {
             alert("Invalid entry");
             event.preventDefault();
          }
+         const faultyItemsDiv = document.getElementById("faultyItems");
+            faultyItems.innerHTML += `
+               <ol>
+                  <li>Pilot ${pilotNameInput.value} Ready</li>
+                  <li id="copilotStatus">Co-pilot ${coPilotNameInput.value} Ready</li>
+                  <li id="fuelStatus">Fuel level high enough for launch</li>
+                  <li id="cargoStatus">Cargo mass low enough for launch</li>
+               </ol>
+               `;
    });
    // fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
    //    response.json(function(json) {
