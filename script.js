@@ -30,24 +30,22 @@ window.addEventListener("load", function() {
       } else {
          launchStatus.innerHTML = "Shuttle is ready for launch";
          launchStatus.style.color = "green";
-         // fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
-         //    response.json(function(json) {
-         //       const missionTarget = document.getElementById("missionTarget");
-         //          for (planets of json) {
-         //             missionTarget.innerHTML += `
-         //                <h2>Mission Destination</h2>
-         //                <ol>
-         //                   <li>Name: ${planets.name}</li>
-         //                   <li>Diameter: ${}</li>
-         //                   <li>Star: ${}</li>
-         //                   <li>Distance from Earth: ${}</li>
-         //                   <li>Number of Moons: ${}</li>
-         //                </ol>
-         //                <img src="${}">
-         //             `;
-         //          }
-         //    });
-         // });
+         fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
+            response.json().then(function(json) {
+               const missionTarget = document.getElementById("missionTarget");
+                  missionTarget.innerHTML += `
+                     <h2>Mission Destination</h2>
+                        <ol>
+                           <li>Name: ${planets[0].name}</li>
+                           <li>Diameter: ${planets[0].diameter}</li>
+                           <li>Star: ${planets[0].star}</li>
+                           <li>Distance from Earth: ${planets[0].distance}</li>
+                           <li>Number of Moons: ${planets[0].moons}</li>
+                        </ol>
+                     <img src="${planets[0].image}">
+                  `;
+            });
+         });
       }
    });
 });
