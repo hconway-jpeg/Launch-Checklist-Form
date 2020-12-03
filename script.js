@@ -6,23 +6,25 @@ window.addEventListener("load", function() {
       let coPilotNameInput = document.querySelector("input[name=copilotName]");
       let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
       let cargoMassInput = document.querySelector("input[name=cargoMass]");
-         if (pilotNameInput.value === "" || coPilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === "") {
-            alert("All fields are required");
-            event.preventDefault();
-         } else if (isNaN(pilotNameInput.value) === false || isNaN(coPilotNameInput.value) === false || isNaN(fuelLevelInput.value) === true || isNaN(cargoMassInput.value) === true) {
-            alert("Invalid entry");
-            event.preventDefault();
-         }
-         const faultyItemsDiv = document.getElementById("faultyItems");
-            faultyItems.innerHTML += `
-               <ol>
-                  <li>Pilot ${pilotNameInput.value} Ready</li>
-                  <li id="copilotStatus">Co-pilot ${coPilotNameInput.value} Ready</li>
-                  <li id="fuelStatus">Fuel level high enough for launch</li>
-                  <li id="cargoStatus">Cargo mass low enough for launch</li>
-               </ol>
-               `;
-   });
+      let faultyItemsDiv = document.getElementById("faultyItems");
+         
+      if (pilotNameInput.value === "" || coPilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === "") {
+         alert("All fields are required");
+         event.preventDefault();
+      } else if (isNaN(pilotNameInput.value) === false || isNaN(coPilotNameInput.value) === false || isNaN(fuelLevelInput.value) === true || isNaN(cargoMassInput.value) === true) {
+         alert("Invalid entry");
+         event.preventDefault();
+         } else if (fuelLevelInput.value < 10000) {
+            faultyItemsDiv.style.visibility = "visible";
+            }
+         
+   }
+});
+
+
+
+
+
    // fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
    //    response.json(function(json) {
    //       const missionTarget = document.getElementById("missionTarget");
@@ -39,4 +41,3 @@ window.addEventListener("load", function() {
    //          `;
    //    });
    // });
-});
