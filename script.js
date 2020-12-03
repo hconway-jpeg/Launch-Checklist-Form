@@ -6,7 +6,7 @@ window.addEventListener("load", function() {
       let coPilotNameInput = document.querySelector("input[name=copilotName]");
       let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
       let cargoMassInput = document.querySelector("input[name=cargoMass]");
-      let faultyItemsDiv = document.getElementById("faultyItems");
+      let faultyItems = document.getElementById("faultyItems");
          
       if (pilotNameInput.value === "" || coPilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === "") {
          alert("All fields are required");
@@ -14,11 +14,12 @@ window.addEventListener("load", function() {
       } else if (isNaN(pilotNameInput.value) === false || isNaN(coPilotNameInput.value) === false || isNaN(fuelLevelInput.value) === true || isNaN(cargoMassInput.value) === true) {
          alert("Invalid entry");
          event.preventDefault();
-         } else if (fuelLevelInput.value < 10000) {
-            faultyItemsDiv.style.visibility = "visible";
-            }
+      }  else if (fuelLevelInput.value < 10000) {
+         faultyItems.style.visibility = "visible";
+         faultyItems.style.visibility = "inherit";
+      }
          
-   }
+   });
 });
 
 
