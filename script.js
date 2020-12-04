@@ -15,10 +15,8 @@ window.addEventListener("load", function() {
 
       if (pilotNameInput.value === "" || coPilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === "") {
          alert("All fields are required");
-         // event.preventDefault();
       } else if (isNaN(pilotNameInput.value) === false || isNaN(coPilotNameInput.value) === false || isNaN(fuelLevelInput.value) === true || isNaN(cargoMassInput.value) === true) {
          alert("Invalid entry");
-         // event.preventDefault();
       } else if (fuelLevelInput.value < 10000) {
          launchStatus.innerHTML = "Shuttle not ready for launch";
          launchStatus.style.color = "red";
@@ -47,16 +45,17 @@ window.addEventListener("load", function() {
          fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
             response.json().then(function(json) {
                const missionTarget = document.getElementById("missionTarget");
+                  let planet = Math.round(Math.random()*5);
                   missionTarget.innerHTML += `
                      <h2>Mission Destination</h2>
                         <ol>
-                           <li>Name: ${planets[0].name}</li>
-                           <li>Diameter: ${planets[0].diameter}</li>
-                           <li>Star: ${planets[0].star}</li>
-                           <li>Distance from Earth: ${planets[0].distance}</li>
-                           <li>Number of Moons: ${planets[0].moons}</li>
+                           <li>Name: ${json[planet].name}</li>
+                           <li>Diameter: ${json[planet].diameter}</li>
+                           <li>Star: ${json[planet].star}</li>
+                           <li>Distance from Earth: ${json[planet].distance}</li>
+                           <li>Number of Moons: ${json[planet].moons}</li>
                         </ol>
-                     <img src="${planets[0].image}">
+                     <img src="${json[planet].image}">
                   `;
             });
          });
