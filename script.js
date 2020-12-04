@@ -17,37 +17,48 @@ window.addEventListener("load", function() {
          alert("All fields are required");
       } else if (isNaN(pilotNameInput.value) === false || isNaN(coPilotNameInput.value) === false || isNaN(fuelLevelInput.value) === true || isNaN(cargoMassInput.value) === true) {
          alert("Invalid entry");
-      } else if (fuelLevelInput.value < 10000) {
-         launchStatus.innerHTML = "Shuttle not ready for launch";
-         launchStatus.style.color = "red";
-         faultyItems.style.visibility = "visible";
-         pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} Ready`;
-         coPilotStatus.innerHTML = `Co-Pilot ${coPilotNameInput.value} Ready`;
-         fuelStatus.innerHTML = "Fuel level too low for launch";
-      } else if (cargoMassInput.value > 10000) {
-         launchStatus.innerHTML = "Shuttle not ready for launch";
-         launchStatus.style.color = "red";
-         faultyItems.style.visibility = "visible";
-         pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} Ready`;
-         coPilotStatus.innerHTML = `Co-Pilot ${coPilotNameInput.value} Ready`;
-         cargoStatus.innerHTML = "Cargo mass too heavy for launch";
-      } else if (fuelLevelInput.value < 10000 && cargoMassInput.value > 10000) {
-         launchStatus.innerHTML = "Shuttle not ready for launch";
-         launchStatus.style.color = "red";
-         faultyItems.style.visibility = "visible";
-         pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} Ready`;
-         coPilotStatus.innerHTML = `Co-Pilot ${coPilotNameInput.value} Ready`;
-         fuelStatus.innerHTML = "Fuel level too low for launch";
-         cargoStatus.innerHTML = "Cargo mass too heavy for launch";
-      } else {
-         launchStatus.innerHTML = "Shuttle is ready for launch";
-         launchStatus.style.color = "green";
-         fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
-            response.json().then(function(json) {
-               const missionTarget = document.getElementById("missionTarget");
+      }
+      if (pilotNameInput.value !== "" && isNaN(pilotNameInput.value) === true && coPilotNameInput.value !== "" && isNaN(coPilotNameInput.value) === true && fuelLevelInput.value !== "" && isNaN(fuelLevelInput.value) === false && cargoMassInput.value !== "" && isNaN(cargoMassInput.value) === false) {
+         if (fuelLevelInput.value < 10000 && cargoMassInput.value < 10001) {
+            launchStatus.innerHTML = "Shuttle not ready for launch";
+            launchStatus.style.color = "red";
+            faultyItems.style.visibility = "visible";
+            pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} Ready`;
+            coPilotStatus.innerHTML = `Co-Pilot ${coPilotNameInput.value} Ready`;
+            fuelStatus.innerHTML = "Fuel level too low for launch";
+            cargoStatus.innerHTML = "Cargo mass low enough for launch";
+         }
+         if (cargoMassInput.value > 10000 && fuelLevelInput.value > 9999) {
+            launchStatus.innerHTML = "Shuttle not ready for launch";
+            launchStatus.style.color = "red";
+            faultyItems.style.visibility = "visible";
+            pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} Ready`;
+            coPilotStatus.innerHTML = `Co-Pilot ${coPilotNameInput.value} Ready`;
+            fuelStatus.innerHTML = "Fuel level high enough for launch";
+            cargoStatus.innerHTML = "Cargo mass too heavy for launch";
+         } 
+         if (fuelLevelInput.value < 10000 && cargoMassInput.value > 10000) {
+            launchStatus.innerHTML = "Shuttle not ready for launch";
+            launchStatus.style.color = "red";
+            faultyItems.style.visibility = "visible";
+            pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} Ready`;
+            coPilotStatus.innerHTML = `Co-Pilot ${coPilotNameInput.value} Ready`;
+            fuelStatus.innerHTML = "Fuel level too low for launch";
+            cargoStatus.innerHTML = "Cargo mass too heavy for launch";
+         }
+         else if (fuelLevelInput.value > 9999 && cargoMassInput.value < 10001) {
+            launchStatus.innerHTML = "Shuttle is ready for launch";
+            launchStatus.style.color = "green";
+            pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} Ready`;
+            coPilotStatus.innerHTML = `Co-Pilot ${coPilotNameInput.value} Ready`;
+            fuelStatus.innerHTML = "Fuel level high enough for launch";
+            cargoStatus.innerHTML = "Cargo mass low enough for launch";
+            fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
+               response.json().then(function(json) {
+                  const missionTarget = document.getElementById("missionTarget");
                   let planet = Math.round(Math.random()*5);
-                  missionTarget.innerHTML = `
-                     <h2>Mission Destination</h2>
+                     missionTarget.innerHTML = `
+                        <h2>Mission Destination</h2>
                         <ol>
                            <li>Name: ${json[planet].name}</li>
                            <li>Diameter: ${json[planet].diameter}</li>
@@ -56,9 +67,10 @@ window.addEventListener("load", function() {
                            <li>Number of Moons: ${json[planet].moons}</li>
                         </ol>
                      <img src="${json[planet].image}">
-                  `;
+                     `;
+               });
             });
-         });
+         }
       }
       event.preventDefault();
    });
