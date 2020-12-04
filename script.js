@@ -46,7 +46,7 @@ window.addEventListener("load", function() {
             response.json().then(function(json) {
                const missionTarget = document.getElementById("missionTarget");
                   let planet = Math.round(Math.random()*5);
-                  missionTarget.innerHTML += `
+                  missionTarget.innerHTML = `
                      <h2>Mission Destination</h2>
                         <ol>
                            <li>Name: ${json[planet].name}</li>
